@@ -1,26 +1,237 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand colors */
+  --coral: #FF4D4D;
+  --coral-light: #FF7070;
+  --coral-dark: #E03030;
+  --teal: #00C9B1;
+  --teal-light: #1DDFC7;
+  --teal-dark: #00A896;
+  --navy: #1A1A2E;
+  --navy-mid: #2D2D4A;
+  --cream: #FEFAF6;
+  --warm-white: #FFF8F3;
+  --charcoal: #1A1A2E;
+  --dark-text: #1A1A2E;
+  --body-text: #444444;
+  --gray-text: #6B7280;
+  --light-gray: #F3F4F6;
+  --border: #E5E7EB;
+
+  /* Spacing */
+  --section-pad: 80px;
+  --container-max: 1200px;
+  --card-radius: 24px;
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.07);
+  --card-shadow-hover: 0 12px 40px rgba(0, 0, 0, 0.13);
+  --card-gap: 24px;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-coral: var(--coral);
+  --color-coral-light: var(--coral-light);
+  --color-coral-dark: var(--coral-dark);
+  --color-teal: var(--teal);
+  --color-teal-light: var(--teal-light);
+  --color-teal-dark: var(--teal-dark);
+  --color-cream: var(--cream);
+  --color-navy: var(--navy);
+  --color-charcoal: var(--charcoal);
+  --color-dark-text: var(--dark-text);
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--cream);
+  color: var(--body-text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  color: var(--dark-text);
+  line-height: 1.2;
+}
+
+p {
+  color: var(--body-text);
+  max-width: 600px;
+  line-height: 1.7;
+}
+
+/* Container */
+.container {
+  max-width: var(--container-max);
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--coral); border-radius: 3px; }
+
+/* Animations */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255,77,77,0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(255,77,77,0); }
+}
+@keyframes floatY {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-fade-in-up { animation: fadeInUp 0.7s ease forwards; }
+.animate-fade-in { animation: fadeIn 0.6s ease forwards; }
+.animate-pulse-glow { animation: pulse-glow 2s infinite; }
+.animate-float { animation: floatY 4s ease-in-out infinite; }
+
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, var(--coral) 0%, var(--teal) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Card base */
+.card {
+  background: #ffffff;
+  border-radius: var(--card-radius);
+  box-shadow: var(--card-shadow);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  padding: 24px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Card hover lift */
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Category pill badge */
+.pill-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* Section layout */
+.section {
+  padding: var(--section-pad) 24px;
+}
+
+/* Section heading */
+.section-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--coral);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.section-title {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 40px;
+  font-weight: 800;
+  color: var(--dark-text);
+  line-height: 1.15;
+}
+
+/* Prose styles for blog content */
+.prose-blog h2 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--dark-text);
+  margin: 2rem 0 1rem;
+}
+.prose-blog h3 {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--coral);
+  margin: 1.5rem 0 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.prose-blog p {
+  line-height: 1.85;
+  color: var(--body-text);
+  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+}
+.prose-blog ul {
+  list-style: none;
+  margin: 1rem 0 1.5rem;
+}
+.prose-blog ul li {
+  padding: 0.5rem 0 0.5rem 1.75rem;
+  position: relative;
+  color: var(--body-text);
+  font-size: 1.05rem;
+}
+.prose-blog ul li::before {
+  content: '✦';
+  position: absolute;
+  left: 0;
+  color: var(--coral);
+  font-size: 0.75rem;
+  top: 0.7rem;
+}
+.prose-blog strong {
+  color: var(--dark-text);
+  font-weight: 700;
+}
+.prose-blog .tip-box {
+  background: linear-gradient(135deg, rgba(0,201,177,0.1), rgba(0,201,177,0.05));
+  border-left: 4px solid var(--teal);
+  padding: 1.25rem 1.5rem;
+  border-radius: 0 12px 12px 0;
+  margin: 1.5rem 0;
+}
+.prose-blog .tip-box p {
+  margin: 0;
+  color: var(--teal-dark);
+  font-weight: 500;
 }
