@@ -3,8 +3,10 @@
 
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
+import { useSession } from 'next-auth/react';
 
 export default function Navbar() {
+  const { data: session } = useSession();
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -19,6 +21,7 @@ export default function Navbar() {
     { href: '/categories/workouts', label: 'Workouts' },
     { href: '/categories/nutrition', label: 'Nutrition' },
     { href: '/categories/mindset', label: 'Mindset' },
+    { href: '/community', label: 'Community' },
   ];
 
   return (
@@ -125,36 +128,68 @@ export default function Navbar() {
           ))}
         </ul>
 
-        {/* CTA */}
-        <Link
-          href="/#newsletter"
-          id="nav-cta"
-          className="hidden md:flex"
-          style={{
-            alignItems: 'center',
-            gap: '8px',
-            background: 'linear-gradient(135deg, #FF4D4D, #FF7070)',
-            color: 'white',
-            fontSize: '14px',
-            fontWeight: 700,
-            fontFamily: 'var(--font-body, "DM Sans")',
-            padding: '10px 22px',
-            borderRadius: '999px',
-            boxShadow: '0 4px 16px rgba(255,77,77,0.3)',
-            textDecoration: 'none',
-            transition: 'all 0.2s ease',
-          }}
-          onMouseEnter={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
-            (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 24px rgba(255,77,77,0.4)';
-          }}
-          onMouseLeave={(e) => {
-            (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
-            (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(255,77,77,0.3)';
-          }}
-        >
-          Join Free ✨
-        </Link>
+        {/* CTA / Profile */}
+        {session ? (
+          <Link
+            href={`/profile/${session.user?.email}`}
+            id="nav-profile"
+            className="hidden md:flex"
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '40px',
+              height: '40px',
+              borderRadius: '50%',
+              background: 'linear-gradient(135deg, #FF4D4D, #FF7070)',
+              color: 'white',
+              fontSize: '18px',
+              textDecoration: 'none',
+              transition: 'all 0.2s ease',
+              boxShadow: '0 2px 8px rgba(255,77,77,0.2)',
+            }}
+            title={session.user?.email || 'Profile'}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'scale(1.1)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 12px rgba(255,77,77,0.3)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 8px rgba(255,77,77,0.2)';
+            }}
+          >
+            👤
+          </Link>
+        ) : (
+          <Link
+            href="/#newsletter"
+            id="nav-cta"
+            className="hidden md:flex"
+            style={{
+              alignItems: 'center',
+              gap: '8px',
+              background: 'linear-gradient(135deg, #FF4D4D, #FF7070)',
+              color: 'white',
+              fontSize: '14px',
+              fontWeight: 700,
+              fontFamily: 'var(--font-body, "DM Sans")',
+              padding: '10px 22px',
+              borderRadius: '999px',
+              boxShadow: '0 4px 16px rgba(255,77,77,0.3)',
+              textDecoration: 'none',
+              transition: 'all 0.2s ease',
+            }}
+            onMouseEnter={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'scale(1.05)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 24px rgba(255,77,77,0.4)';
+            }}
+            onMouseLeave={(e) => {
+              (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
+              (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 16px rgba(255,77,77,0.3)';
+            }}
+          >
+            Join Free ✨
+          </Link>
+        )}
 
         {/* Hamburger */}
         <button
@@ -242,24 +277,65 @@ export default function Navbar() {
               </Link>
             </li>
           ))}
+          {session && (
+            <li>
+              <Link
+                href={`/profile/${session.user?.email}`}
+                style={{
+                  display: 'block',
+                  padding: '12px 16px',
+                  borderRadius: '12px',
+                  fontFamily: 'var(--font-body, "DM Sans")',
+                  fontWeight: 500,
+                  fontSize: '15px',
+                  color: '#444',
+                  textDecoration: 'none',
+                  transition: 'all 0.2s',
+                }}
+                onClick={() => setMenuOpen(false)}
+              >
+                👤 My Profile
+              </Link>
+            </li>
+          )}
           <li style={{ paddingTop: '8px' }}>
-            <Link
-              href="/#newsletter"
-              style={{
-                display: 'block',
-                textAlign: 'center',
-                background: 'linear-gradient(135deg, #FF4D4D, #FF7070)',
-                color: 'white',
-                fontWeight: 700,
-                fontFamily: 'var(--font-body, "DM Sans")',
-                padding: '14px 24px',
-                borderRadius: '999px',
-                textDecoration: 'none',
-              }}
-              onClick={() => setMenuOpen(false)}
-            >
-              Join Free ✨
-            </Link>
+            {session ? (
+              <Link
+                href="/api/auth/signin"
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  background: 'rgba(255,77,77,0.1)',
+                  color: '#FF4D4D',
+                  fontWeight: 700,
+                  fontFamily: 'var(--font-body, "DM Sans")',
+                  padding: '14px 24px',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                }}
+                onClick={() => setMenuOpen(false)}
+              >
+                Account
+              </Link>
+            ) : (
+              <Link
+                href="/#newsletter"
+                style={{
+                  display: 'block',
+                  textAlign: 'center',
+                  background: 'linear-gradient(135deg, #FF4D4D, #FF7070)',
+                  color: 'white',
+                  fontWeight: 700,
+                  fontFamily: 'var(--font-body, "DM Sans")',
+                  padding: '14px 24px',
+                  borderRadius: '999px',
+                  textDecoration: 'none',
+                }}
+                onClick={() => setMenuOpen(false)}
+              >
+                Join Free ✨
+              </Link>
+            )}
           </li>
         </ul>
       </div>
