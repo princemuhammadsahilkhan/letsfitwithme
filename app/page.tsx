@@ -8,6 +8,7 @@ import CategoryCardLink from '@/components/CategoryCardLink';
 import ViewAllPostsLink from '@/components/ViewAllPostsLink';
 import Icon from '@/components/Icon';
 import { getAllPosts, categoryMeta } from '@/lib/posts';
+import { HomePageClient } from '@/components/HomePageClient';
 
 export const metadata: Metadata = {
   title: 'Home — Beginner Home Workouts & Fitness Tips',
@@ -27,7 +28,7 @@ export default function HomePage() {
   ];
 
   return (
-    <>
+    <HomePageClient>
       <HeroSection />
 
       {/* Categories strip */}
@@ -254,6 +255,6 @@ export default function HomePage() {
       </section>
 
       <EmailSignup />
-    </>
+    </HomePageClient>
   );
 }
