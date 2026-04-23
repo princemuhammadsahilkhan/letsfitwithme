@@ -6,9 +6,10 @@ export const metadata: Metadata = {
   description: 'User profile on LetsFit.',
 };
 
-export default function ProfilePage({ params }: { params: { username: string } }) {
-  const username = decodeURIComponent(params.username);
-  const dummyUser = { username, name: username, followers: [], following: [], posts: [] };
+export default async function ProfilePage({ params }: { params: Promise<{ username: string }> }) {
+  const { username } = await params;
+  const decodedUsername = decodeURIComponent(username);
+  const dummyUser = { username: decodedUsername, name: decodedUsername, followers: [], following: [], posts: [] };
 
   return (
     <main className="min-h-screen pt-32 pb-16 bg-[#FFFFFF]">

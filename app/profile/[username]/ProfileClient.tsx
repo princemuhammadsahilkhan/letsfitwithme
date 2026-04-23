@@ -32,7 +32,17 @@ interface Post {
   createdAt: string;
 }
 
-export default function ProfileClient({ params }: { params: Promise<{ username: string }> }) {
+interface Props {
+  user: {
+    username: string;
+    name: string;
+    followers: never[];
+    following: never[];
+    posts: never[];
+  };
+}
+
+export default function ProfileClient({ user }: Props) {
   const { data: session } = useSession();
   const [username, setUsername] = useState('');
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -44,7 +54,7 @@ export default function ProfileClient({ params }: { params: Promise<{ username: 
   useEffect(() => {
     const loadData = async () => {
       try {
-        const { username: un } = await params;
+        const un = user.username;
         setUsername(un);
 
         // Load profile
@@ -77,7 +87,7 @@ export default function ProfileClient({ params }: { params: Promise<{ username: 
     };
 
     loadData();
-  }, [params]);
+  }, [user.username]);
 
   const handleFollowChange = (newFollowing: boolean) => {
     setFollowing(newFollowing);
