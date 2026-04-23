@@ -32,7 +32,7 @@ interface Post {
   createdAt: string;
 }
 
-export function ProfileClient({ params }: { params: Promise<{ username: string }> }) {
+export default function ProfileClient({ params }: { params: Promise<{ username: string }> }) {
   const { data: session } = useSession();
   const [username, setUsername] = useState('');
   const [profile, setProfile] = useState<UserProfile | null>(null);
