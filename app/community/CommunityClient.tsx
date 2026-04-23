@@ -1,137 +1,84 @@
-'use client';
+"use client";
 
-import { useEffect, useState, useCallback } from 'react';
-import PostComposer from '@/components/PostComposer';
-import PostCard from '@/components/PostCard';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+import { useState, useEffect } from 'react';
+import MasonryGrid from '@/components/MasonryGrid';
 
-interface Post {
-  _id: string;
-  authorUsername: string;
-  authorAvatar: string;
-  content: string;
-  image?: string;
-  likeCount: number;
-  commentCount: number;
-  isLikedByUser?: boolean;
-  createdAt: string;
-}
-
-export function CommunityClient() {
-  const [posts, setPosts] = useState<Post[]>([]);
+export default function CommunityClient() {
+  const { data: session } = useSession();
+  const [posts, setPosts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const [hasMore, setHasMore] = useState(true);
-  const [isLoadingMore, setIsLoadingMore] = useState(false);
-
-  const loadPosts = useCallback(async (skip = 0) => {
-    try {
-      if (skip === 0) setLoading(true);
-      else setIsLoadingMore(true);
-
-      const response = await fetch(`/api/posts?skip=${skip}&limit=20`);
-      if (!response.ok) throw new Error('Failed to fetch posts');
-
-      const data = await response.json();
-
-      if (skip === 0) {
-        setPosts(data);
-      } else {
-        setPosts((prev) => [...prev, ...data]);
-      }
-
-      setHasMore(data.length === 20);
-    } catch (error) {
-      console.error('Error loading posts:', error);
-    } finally {
-      setLoading(false);
-      setIsLoadingMore(false);
-    }
-  }, []);
+  const [newPost, setNewPost] = useState('');
 
   useEffect(() => {
-    loadPosts();
-  }, [loadPosts]);
+    fetch('/api/posts')
+      .then(res => res.json())
+      .then(data => { setPosts(data); setLoading(false); })
+      .catch(() => setLoading(false));
+  }, []);
 
-  const handlePostCreated = () => {
-    loadPosts(0);
-  };
-
-  const handleLoadMore = () => {
-    loadPosts(posts.length);
+  const handlePost = async () => {
+    if (!newPost.trim()) return;
+    const res = await fetch('/api/posts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ content: newPost, image: '' }),
+    });
+    if (res.ok) {
+      const added = await res.json();
+      setPosts([added, ...posts]);
+      setNewPost('');
+    }
   };
 
   return (
-    <div style={{ paddingTop: '90px', minHeight: '100vh', background: '#F9FAFB' }}>
-      <div style={{ maxWidth: '600px', margin: '0 auto', padding: '24px 16px' }}>
-        {/* Page header */}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <h1
-            style={{
-              fontFamily: 'var(--font-heading)',
-              fontSize: '32px',
-              fontWeight: 800,
-              marginBottom: '8px',
-            }}
-          >
-            Community Feed
-          </h1>
-          <p style={{ color: '#666', fontSize: '14px' }}>
-            Share your fitness journey with others and discover their stories
-          </p>
-        </div>
-
-        {/* Post composer */}
-        <PostComposer onPostCreated={handlePostCreated} />
-
-        {/* Posts */}
-        {loading ? (
-          <div style={{ textAlign: 'center', padding: '40px 16px', color: '#999' }}>
-            Loading posts...
-          </div>
-        ) : posts.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '40px 16px', color: '#999' }}>
-            <div style={{ fontSize: '48px', marginBottom: '16px' }}>📝</div>
-            <p>No posts yet. Be the first to share your story!</p>
-          </div>
-        ) : (
-          <>
-            {posts.map((post) => (
-              <PostCard key={post._id} post={post} onPostUpdate={() => loadPosts(0)} />
-            ))}
-
-            {/* Load more button */}
-            {hasMore && (
-              <div style={{ textAlign: 'center', marginTop: '24px' }}>
+    <div className="flex flex-col gap-8">
+      {/* Composer */}
+      {session ? (
+        <div className="bg-white rounded-[16px] p-6 shadow-[0_2px_8px_rgba(0,0,0,0.08)] mb-4 w-full max-w-[600px] mx-auto">
+          <div className="flex gap-4">
+            <div className="w-10 h-10 rounded-full bg-[#FF4D4D] text-white flex items-center justify-center font-bold shrink-0">
+              {(session.user?.name || session.user?.email || 'U').charAt(0).toUpperCase()}
+            </div>
+            <div className="flex-1 flex flex-col gap-4">
+              <textarea
+                value={newPost}
+                onChange={(e) => setNewPost(e.target.value)}
+                placeholder="Share your fitness journey..."
+                className="w-full bg-transparent outline-none resize-none text-[#111111] placeholder-[#767676] min-h-[60px] text-lg"
+              />
+              <div className="flex justify-between items-center pt-2 border-t border-[#EFEFEF]">
+                <button className="text-[#767676] hover:text-[#111111] transition-colors p-2 rounded-full hover:bg-[#F8F8F8]">
+                  📷
+                </button>
                 <button
-                  onClick={handleLoadMore}
-                  disabled={isLoadingMore}
-                  style={{
-                    padding: '12px 32px',
-                    background: 'white',
-                    border: '1px solid rgba(0,0,0,0.1)',
-                    borderRadius: '999px',
-                    fontSize: '14px',
-                    fontWeight: 600,
-                    cursor: isLoadingMore ? 'not-allowed' : 'pointer',
-                    color: '#FF4D4D',
-                    transition: 'all 0.2s',
-                    opacity: isLoadingMore ? 0.6 : 1,
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isLoadingMore) {
-                      (e.currentTarget as HTMLElement).style.background = 'rgba(255,77,77,0.08)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = 'white';
-                  }}
+                  onClick={handlePost}
+                  disabled={!newPost.trim()}
+                  className="bg-[#FF4D4D] text-white px-5 py-2 rounded-full font-bold text-sm hover:bg-[#E63E3E] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {isLoadingMore ? 'Loading...' : 'Load More Posts'}
+                  Post
                 </button>
               </div>
-            )}
-          </>
-        )}
-      </div>
+            </div>
+          </div>
+        </div>
+      ) : (
+        <div className="bg-white rounded-[16px] p-8 shadow-[0_2px_8px_rgba(0,0,0,0.08)] mb-4 text-center w-full max-w-[600px] mx-auto">
+          <h2 className="text-[#111111] font-bold text-xl mb-4">Join the conversation</h2>
+          <p className="text-[#767676] mb-6">Log in to share your fitness journey with the community.</p>
+          <Link href="/login" className="bg-[#FF4D4D] text-white px-6 py-3 rounded-full font-bold inline-block hover:bg-[#E63E3E] transition-colors">
+            Log in to share
+          </Link>
+        </div>
+      )}
+
+      {/* Grid */}
+      {loading ? (
+        <div className="text-center py-12 text-[#767676] font-medium">Loading posts...</div>
+      ) : (
+        <MasonryGrid posts={posts} />
+      )}
     </div>
   );
 }
