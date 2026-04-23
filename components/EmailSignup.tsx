@@ -61,8 +61,7 @@ export default function EmailSignup() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            background: 'rgba(255,255,255,0.2)',
-            backdropFilter: 'blur(4px)',
+            background: 'rgba(255,255,255,0.1)',
             padding: '8px 16px',
             borderRadius: '999px',
             color: 'white',
@@ -70,6 +69,7 @@ export default function EmailSignup() {
             fontWeight: 600,
             fontFamily: 'var(--font-body, "DM Sans")',
             marginBottom: '24px',
+            border: '1px solid rgba(255,255,255,0.2)',
           }}
         >
           ✨ Join 12,000+ beginners on their journey
@@ -108,8 +108,8 @@ export default function EmailSignup() {
           <div
             className="animate-fade-in"
             style={{
-              background: 'rgba(255,255,255,0.2)',
-              backdropFilter: 'blur(12px)',
+              background: 'rgba(255,255,255,0.1)',
+              border: '1px solid rgba(255,255,255,0.2)',
               borderRadius: '24px',
               padding: '40px',
               color: 'white',

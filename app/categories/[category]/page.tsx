@@ -56,7 +56,7 @@ export default async function CategoryPage({ params }: Props) {
           </div>
           <h1 className="text-4xl sm:text-5xl font-black mb-4">{meta.label}</h1>
           <p className="text-white/90 text-lg max-w-xl mx-auto">{descriptions[cat]}</p>
-          <div className="mt-6 inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold">
+          <div className="mt-6 inline-flex items-center gap-2 bg-white text-navy px-4 py-2 rounded-full text-sm font-semibold shadow-sm">
             {posts.length} {posts.length === 1 ? 'article' : 'articles'} available
           </div>
         </div>

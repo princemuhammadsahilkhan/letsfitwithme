@@ -55,7 +55,7 @@ export default function BlogPage() {
                 {tab.label}
               </div>
               <span className={`text-xs px-1.5 py-0.5 rounded-full ${
-                activeCategory === tab.key ? 'bg-white/20 text-white' : 'bg-gray-100 text-gray-400'
+                activeCategory === tab.key ? 'bg-white text-[#FF6B6B]' : 'bg-gray-100 text-gray-400'
               }`}>
                 {tab.key === 'all' ? allPosts.length : allPosts.filter((p) => p.category === tab.key).length}
               </span>

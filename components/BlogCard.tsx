@@ -51,9 +51,8 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
           <span
             className="pill-badge"
             style={{
-              background: 'rgba(255,255,255,0.93)',
+              background: 'white',
               color: '#1A1A2E',
-              backdropFilter: 'blur(8px)',
               boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
               display: 'inline-flex',
               alignItems: 'center',
@@ -70,9 +69,8 @@ export default function BlogCard({ post, featured = false }: BlogCardProps) {
           <span
             className="pill-badge"
             style={{
-              background: 'rgba(0,0,0,0.45)',
+              background: '#1A1A2E',
               color: 'white',
-              backdropFilter: 'blur(8px)',
             }}
           >
             {post.readTime}
