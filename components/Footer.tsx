@@ -71,7 +71,7 @@ export default function Footer() {
                     width: '40px',
                     height: '40px',
                     borderRadius: '50%',
-                    background: 'rgba(255,255,255,0.1)',
+                    background: '#1F2937',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -85,7 +85,7 @@ export default function Footer() {
                     (e.currentTarget as HTMLElement).style.transform = 'scale(1.1)';
                   }}
                   onMouseLeave={(e) => {
-                    (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.1)';
+                    (e.currentTarget as HTMLElement).style.background = '#1F2937';
                     (e.currentTarget as HTMLElement).style.transform = 'scale(1)';
                   }}
                 >
@@ -180,7 +180,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div
           style={{
-            borderTop: '1px solid rgba(255,255,255,0.1)',
+            borderTop: '1px solid #1F2937',
             marginTop: '48px',
             paddingTop: '32px',
             display: 'flex',

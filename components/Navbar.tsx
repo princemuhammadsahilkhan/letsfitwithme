@@ -250,8 +250,8 @@ export default function Navbar() {
           transition: 'all 0.3s ease',
           maxHeight: menuOpen ? '400px' : '0',
           opacity: menuOpen ? 1 : 0,
-          background: 'rgba(255,255,255,0.99)',
-          borderTop: menuOpen ? '1px solid rgba(0,0,0,0.06)' : 'none',
+          background: 'white',
+          borderTop: menuOpen ? '1px solid #E5E7EB' : 'none',
         }}
       >
         <ul style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '4px', listStyle: 'none' }}>

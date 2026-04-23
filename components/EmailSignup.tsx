@@ -41,9 +41,9 @@ export default function EmailSignup() {
       />
 
       {/* Floating decorative elements */}
-      <div className="animate-float" style={{ position: 'absolute', top: '10%', left: '10%', width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)' }} />
-      <div className="animate-float" style={{ position: 'absolute', bottom: '10%', right: '10%', width: '120px', height: '120px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', animationDelay: '2s' }} />
-      <div className="animate-float" style={{ position: 'absolute', top: '50%', right: '25%', width: '48px', height: '48px', borderRadius: '50%', background: 'rgba(255,255,255,0.1)', animationDelay: '1s' }} />
+      <div className="animate-float" style={{ position: 'absolute', top: '10%', left: '10%', width: '80px', height: '80px', borderRadius: '50%', background: '#ff7777' }} />
+      <div className="animate-float" style={{ position: 'absolute', bottom: '10%', right: '10%', width: '120px', height: '120px', borderRadius: '50%', background: '#ff7777', animationDelay: '2s' }} />
+      <div className="animate-float" style={{ position: 'absolute', top: '50%', right: '25%', width: '48px', height: '48px', borderRadius: '50%', background: '#ff7777', animationDelay: '1s' }} />
 
       <div
         className="container"
@@ -61,7 +61,7 @@ export default function EmailSignup() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            background: 'rgba(255,255,255,0.1)',
+            background: '#ff7777',
             padding: '8px 16px',
             borderRadius: '999px',
             color: 'white',
@@ -69,7 +69,7 @@ export default function EmailSignup() {
             fontWeight: 600,
             fontFamily: 'var(--font-body, "DM Sans")',
             marginBottom: '24px',
-            border: '1px solid rgba(255,255,255,0.2)',
+            border: '1px solid #ff9999',
           }}
         >
           ✨ Join 12,000+ beginners on their journey
@@ -108,8 +108,8 @@ export default function EmailSignup() {
           <div
             className="animate-fade-in"
             style={{
-              background: 'rgba(255,255,255,0.1)',
-              border: '1px solid rgba(255,255,255,0.2)',
+              background: '#ff7777',
+              border: '1px solid #ff9999',
               borderRadius: '24px',
               padding: '40px',
               color: 'white',

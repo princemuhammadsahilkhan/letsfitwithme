@@ -41,9 +41,9 @@ function LoginForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-lg shadow-sm border border-slate-200 p-8">
+    <form onSubmit={handleSubmit} className="space-y-6 bg-white rounded-xl shadow-sm border border-gray-100 p-8">
       <div>
-        <label htmlFor="username" className="block text-sm font-medium text-slate-900 mb-2">
+        <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
           Username
         </label>
         <input
@@ -54,12 +54,13 @@ function LoginForm() {
           placeholder="e.g., FitWolf#4821"
           required
           disabled={isLoading}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:border-transparent transition-colors"
+          style={{ '--tw-ring-color': 'var(--coral)' } as any}
         />
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-slate-900 mb-2">
+        <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-2">
           Password
         </label>
         <input
@@ -70,12 +71,13 @@ function LoginForm() {
           placeholder="Your 8-character password"
           required
           disabled={isLoading}
-          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent disabled:opacity-50"
+          className="w-full px-4 py-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-opacity-50 focus:border-transparent transition-colors"
+          style={{ '--tw-ring-color': 'var(--coral)' } as any}
         />
       </div>
 
       {error && (
-        <div className="p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+        <div className="p-3 bg-red-50 border border-red-100 rounded-lg text-red-600 text-sm">
           {error}
         </div>
       )}
@@ -83,15 +85,16 @@ function LoginForm() {
       <button
         type="submit"
         disabled={isLoading}
-        className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-slate-400 text-white font-medium py-2 px-4 rounded-lg transition-colors"
+        className="w-full text-white font-semibold py-3 px-4 rounded-lg transition-opacity hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+        style={{ backgroundColor: 'var(--coral)' }}
       >
         {isLoading ? 'Logging in...' : 'Login'}
       </button>
 
-      <div className="text-center pt-4 border-t border-slate-200">
-        <p className="text-slate-600 text-sm mb-2">Don't have credentials yet?</p>
-        <Link href="/" className="text-blue-600 hover:text-blue-700 font-medium">
-          Get your free credentials
+      <div className="text-center pt-6 border-t border-gray-100 mt-6">
+        <p className="text-gray-500 text-sm mb-2">Don't have an account?</p>
+        <Link href="/" className="font-semibold hover:underline transition-colors" style={{ color: 'var(--coral)' }}>
+          Sign up for free
         </Link>
       </div>
     </form>
@@ -100,11 +103,11 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-slate-50 to-white px-4">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold mb-2">Welcome Back</h1>
-          <p className="text-slate-600">Enter your credentials to login</p>
+          <h1 className="text-3xl font-bold mb-2" style={{ color: 'var(--navy)' }}>Welcome Back</h1>
+          <p className="text-gray-500">Enter your credentials to login</p>
         </div>
 
         <Suspense fallback={<div className="text-center">Loading...</div>}>

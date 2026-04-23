@@ -67,10 +67,11 @@ export default function PostCard({ post, onPostUpdate }: PostCardProps) {
     <div
       style={{
         background: 'white',
-        border: '1px solid rgba(0,0,0,0.08)',
+        border: '1px solid #E5E7EB',
         borderRadius: '12px',
         padding: '16px',
         marginBottom: '16px',
+        boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
       }}
     >
       {/* Header */}
@@ -115,7 +116,7 @@ export default function PostCard({ post, onPostUpdate }: PostCardProps) {
       )}
 
       {/* Actions */}
-      <div style={{ display: 'flex', gap: '16px', borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: '12px' }}>
+      <div style={{ display: 'flex', gap: '16px', borderTop: '1px solid #E5E7EB', paddingTop: '12px' }}>
         <button
           onClick={handleLike}
           disabled={!session || isLoading}
@@ -240,7 +241,7 @@ function CommentsList({
   };
 
   return (
-    <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid rgba(0,0,0,0.08)' }}>
+    <div style={{ marginTop: '12px', paddingTop: '12px', borderTop: '1px solid #E5E7EB' }}>
       {/* Comment form */}
       {session ? (
         <form onSubmit={handleSubmitComment} style={{ marginBottom: '12px', display: 'flex', gap: '8px' }}>
@@ -252,7 +253,7 @@ function CommentsList({
             style={{
               flex: 1,
               padding: '8px 12px',
-              border: '1px solid rgba(0,0,0,0.1)',
+              border: '1px solid #E5E7EB',
               borderRadius: '6px',
               fontSize: '13px',
               fontFamily: 'inherit',

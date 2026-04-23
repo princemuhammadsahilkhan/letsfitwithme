@@ -54,7 +54,7 @@ export default function PostComposer({ onPostCreated }: PostComposerProps) {
       <div
         style={{
           background: 'white',
-          border: '1px solid rgba(0,0,0,0.08)',
+          border: '1px solid #E5E7EB',
           borderRadius: '12px',
           padding: '16px',
           textAlign: 'center',
@@ -69,7 +69,7 @@ export default function PostComposer({ onPostCreated }: PostComposerProps) {
           style={{
             display: 'inline-block',
             padding: '10px 22px',
-            background: 'linear-gradient(135deg, #FF4D4D, #FF7070)',
+            background: 'var(--coral, #FF4D4D)',
             color: 'white',
             borderRadius: '999px',
             textDecoration: 'none',
@@ -88,7 +88,7 @@ export default function PostComposer({ onPostCreated }: PostComposerProps) {
       onSubmit={handleSubmit}
       style={{
         background: 'white',
-        border: '1px solid rgba(0,0,0,0.08)',
+        border: '1px solid #E5E7EB',
         borderRadius: '12px',
         padding: '16px',
         marginBottom: '24px',
@@ -113,7 +113,7 @@ export default function PostComposer({ onPostCreated }: PostComposerProps) {
         style={{
           width: '100%',
           padding: '12px',
-          border: '1px solid rgba(0,0,0,0.1)',
+          border: '1px solid #E5E7EB',
           borderRadius: '8px',
           fontSize: '14px',
           fontFamily: 'inherit',

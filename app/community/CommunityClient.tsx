@@ -60,7 +60,7 @@ export function CommunityClient() {
   };
 
   return (
-    <div style={{ paddingTop: '90px', minHeight: '100vh', background: 'rgba(0,0,0,0.01)' }}>
+    <div style={{ paddingTop: '90px', minHeight: '100vh', background: '#F9FAFB' }}>
       <div style={{ maxWidth: '600px', margin: '0 auto', padding: '24px 16px' }}>
         {/* Page header */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>

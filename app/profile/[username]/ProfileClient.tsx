@@ -104,7 +104,7 @@ export function ProfileClient({ params }: { params: Promise<{ username: string }
           style={{
             display: 'inline-block',
             padding: '10px 22px',
-            background: 'linear-gradient(135deg, #FF4D4D, #FF7070)',
+            background: 'var(--coral, #FF4D4D)',
             color: 'white',
             borderRadius: '999px',
             textDecoration: 'none',
@@ -119,7 +119,7 @@ export function ProfileClient({ params }: { params: Promise<{ username: string }
   }
 
   return (
-    <div style={{ paddingTop: '90px', minHeight: '100vh', background: 'rgba(0,0,0,0.01)' }}>
+    <div style={{ paddingTop: '90px', minHeight: '100vh', background: '#F9FAFB' }}>
       <div style={{ maxWidth: '600px', margin: '0 auto', padding: '24px 16px' }}>
         {/* Profile card */}
         <div style={{ background: 'white', borderRadius: '12px', padding: '32px', marginBottom: '32px', textAlign: 'center' }}>
